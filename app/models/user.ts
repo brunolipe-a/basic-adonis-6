@@ -35,15 +35,15 @@ export default class User extends compose(BaseModel, AuthFinder) {
 
   @column({
     serializeAs: null,
-    consume: (value: string) => (value ? JSON.parse(encryption.decrypt(value) ?? '{}') : null),
-    prepare: (value: string) => encryption.encrypt(JSON.stringify(value)),
+    consume: (value: string) => (value ? encryption.decrypt(value) : null),
+    prepare: (value: string) => encryption.encrypt(value),
   })
   declare twoFactorSecret: TwoFactorSecret | null
 
   @column({
     serializeAs: null,
-    consume: (value: string) => (value ? JSON.parse(encryption.decrypt(value) ?? '[]') : []),
-    prepare: (value: string[]) => encryption.encrypt(JSON.stringify(value)),
+    consume: (value: string) => (value ? encryption.decrypt(value) : []),
+    prepare: (value: string[]) => encryption.encrypt(value),
   })
   declare twoFactorRecoveryCodes: string[]
 

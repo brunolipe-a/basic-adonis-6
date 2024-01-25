@@ -11,7 +11,6 @@ export default class extends BaseSchema {
       table.string('password').notNullable()
 
       table.boolean('is_two_factor_enabled').defaultTo(false)
-
       table.text('two_factor_secret').nullable()
       table.text('two_factor_recovery_codes').nullable()
 
