@@ -57,6 +57,7 @@
     "@adonisjs/lucid": "^19.0.0",
     "@vinejs/vine": "^1.7.0",
     "luxon": "^3.4.4",
+    "node-2fa": "^2.0.3",
     "pg": "^8.11.3",
     "reflect-metadata": "^0.2.1"
   },
