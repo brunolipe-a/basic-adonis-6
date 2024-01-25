@@ -5,9 +5,9 @@ import db from '@adonisjs/lucid/services/db'
 import { DatabaseQueryBuilderContract } from '@adonisjs/lucid/types/querybuilder'
 
 /**
- * Options accepted by the uniqueSimple rule
+ * Options accepted by the existsSimple rule
  */
-export type UniqueSimpleOptions = {
+export type ExistsSimpleOptions = {
   table: string
   column?: string
   filter?: (db: DatabaseQueryBuilderContract, value: string, field: FieldContext) => Promise<void>
@@ -16,7 +16,7 @@ export type UniqueSimpleOptions = {
 /**
  * Implementation
  */
-async function uniqueSimple(value: unknown, options: UniqueSimpleOptions, field: FieldContext) {
+async function existsSimple(value: unknown, options: ExistsSimpleOptions, field: FieldContext) {
   /**
    * We do not want to deal with non-string
    * values. The "string" rule will handle the
@@ -38,12 +38,12 @@ async function uniqueSimple(value: unknown, options: UniqueSimpleOptions, field:
 
   const row = await baseQuery.first()
 
-  if (row) {
-    field.report('The {{ field }} has already been taken', 'database.unique', field)
+  if (!row) {
+    field.report('The selected {{ field }} is invalid', 'database.unique', field)
   }
 }
 
 /**
  * Converting a function to a VineJS rule
  */
-export const uniqueSimpleRule = vine.createRule(uniqueSimple)
+export const existsSimpleRule = vine.createRule(existsSimple)
